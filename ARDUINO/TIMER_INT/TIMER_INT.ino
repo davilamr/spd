@@ -1,39 +1,67 @@
-#include "interrupciones.h"
+/******************************************************************
+* Programa: Ejemplo de uso de la interrupción por Timer
+*
+* Objetivo:
+*   Mostrar los aspectos básicos de funcionamiento de una interrupción
+*
+* Aspectos a destacar:
+*   -+ 
+*
+* Versión: 0.1 del 5 de marzo de 2017
+* Autor: Mauricio Dávila
+* Revisión: -
+*
+* *******************************************************************/
+
+#include <LiquidCrystal.h>
+#include "TimerOne.h"
+#define MEGA
 
 
-const int led = 13;  // the pin with a LED
-const int ledVerde = 8;  // the pin with a LED
-int ledState = LOW;    // El LED empieza apagado
-int ledState3 = LOW;    // El LED empieza apagado
-byte f_timerInterrupt1 = 0;
-byte f_timerInterrupt3 = 0;
+#ifdef MEGA
+  LiquidCrystal lcd(8, 9, 4, 5, 6, 7); // Pines utilizados en la Mega2560
+#else
+  LiquidCrystal lcd(12, 11, 5, 4, 3, 2); // Pines utilizados en la UNO
+#endif
 
+/** \brief  Se invoca cada vez que el timer cuenta el tiempo seteado
+ * \param void
+ * \return void
+ */
+void timerHandler(void)
+{
+  
+  
+}
+
+/** \brief  Se invoca una sola vez cuando el programa empieza. 
+ *          Se utiliza para inicializar los modos de trabajo 
+ *          de los pines, el puerto serie, etc... 
+ * \param void
+ * \return void
+ */
 void setup(void)
-   {
-       pinMode(led, OUTPUT);
-       pinMode(ledVerde, OUTPUT);
-       Timer1.initialize(500000);         // Tiempo en micro Segundos
-       Timer1.attachInterrupt(timerInt1); // Activa la interrupcion y la asocia a la función que la atiende "timerInt"
-
-       Timer3.initialize(200000);         // Tiempo en micro Segundos
-       Timer3.attachInterrupt(timerInt3); // Activa la interrupcion y la asocia a la función que la atiende "timerInt"
-
-       
-       digitalWrite(ledVerde, HIGH);
-   }
+{
+  lcd.begin(16, 2); // inicializo la biblioteca indicando 16 caracteres por 2 lineas
+         
+  Timer1.initialize(100000);         // Tiempo en micro Segundos => 100000us == 100ms == 0,1s
+  Timer1.attachInterrupt(timerHandler); // Activa la interrupcion y la asocia a la función que la atiende "timerHandler"
+  
+}
 
 
-   void loop(void)
-   {
-       if(f_timerInterrupt1 == 1)
-       {
-          digitalWrite(led, ledState);  // cambio de estado el led (le asigno HIGH o LOW dependiendo del valor que tomó en la ISR
-          f_timerInterrupt1=0;
-       }
 
-       if(f_timerInterrupt3 == 1)
-       {
-          digitalWrite(ledVerde, ledState3);  // cambio de estado el led (le asigno HIGH o LOW dependiendo del valor que tomó en la ISR
-          f_timerInterrupt3=0;
-       }
-   }
+/** \brief  Contiene el programa que se ejecutará cíclicamente
+ *          
+ * \param void
+ * \return void
+ */
+void loop(void)
+{
+  lcd.setCursor(0,0);
+  lcd.print("Tiempo T: "); // imprime por el lcd
+  lcd.print(millis()/1000); // muestra el tiempo transcurrido desde el encendido
+  
+}
+
+
