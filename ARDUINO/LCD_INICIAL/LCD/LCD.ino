@@ -8,7 +8,7 @@
 * Aspectos a destacar:
 *   -Lectura de la entrada analogica 
 *
-* Versión: 0.1 del 5 de marzo de 2017
+* Versión: 0.3 del 5 de marzo de 2017
 * Autor: Mauricio Dávila
 * Revisión: -
 *
@@ -53,7 +53,7 @@ void loop(void)
 {
   int lcd_key = 0;
   lcd.setCursor(0,0);
-  lcd.print("Boton:"); // imprime por el lcd
+  lcd.print("Boton_v2:"); // imprime por el lcd
   lcd.setCursor(9,1); // mueve el cursor a la segunda linea "1" y lo desplaza "9" espacios
   lcd.print(millis()/1000); // muestra el tiempo transcurrido desde el encendido
   lcd.setCursor(0,1); // mueve el cursor a la primer linea "0" y lo desplaza "0" espacios
@@ -101,21 +101,22 @@ void loop(void)
  */
 int read_LCD_buttons(void)
 {
+  int lcd_key = btnNONE; // el valor inicial es NONE
   int adc_key_in = 0;
-  adc_key_in = analogRead(0); // kectura de la entrada analogica
+  adc_key_in = analogRead(0); // lectura de la entrada analogica
 
-  if (adc_key_in > 1000) 
-    return btnNONE; 
-  if (adc_key_in < 50) 
-    return btnRIGHT;
-  if (adc_key_in < 195) 
-    return btnUP;
-  if (adc_key_in < 380) 
-    return btnDOWN;
-  if (adc_key_in < 555) 
-    return btnLEFT;
-  if (adc_key_in < 790) 
-    return btnSELECT;
-    
-  return btnNONE; // when all others fail, return this...
+  if (adc_key_in > 1000)
+    lcd_key = btnNONE; 
+  else if (adc_key_in < 50) 
+    lcd_key = btnRIGHT;
+  else if (adc_key_in < 195) 
+    lcd_key = btnUP;
+  else if (adc_key_in < 380) 
+    lcd_key = btnDOWN;
+  else if (adc_key_in < 555)  
+    lcd_key = btnLEFT;
+  else if (adc_key_in < 790) 
+    lcd_key = btnSELECT;
+
+  return lcd_key; 
 }
