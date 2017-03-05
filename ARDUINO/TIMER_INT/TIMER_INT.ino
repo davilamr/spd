@@ -24,14 +24,15 @@
   LiquidCrystal lcd(12, 11, 5, 4, 3, 2); // Pines utilizados en la UNO
 #endif
 
+int cuenta = 0;
+
 /** \brief  Se invoca cada vez que el timer cuenta el tiempo seteado
  * \param void
  * \return void
  */
 void timerHandler(void)
 {
-  
-  
+  cuenta++;
 }
 
 /** \brief  Se invoca una sola vez cuando el programa empieza. 
@@ -59,8 +60,12 @@ void setup(void)
 void loop(void)
 {
   lcd.setCursor(0,0);
-  lcd.print("Tiempo T: "); // imprime por el lcd
+  lcd.print("Tiempo INI: "); // imprime por el lcd
   lcd.print(millis()/1000); // muestra el tiempo transcurrido desde el encendido
+
+  lcd.setCursor(0,1);
+  lcd.print("Tiempo TIM: "); // imprime por el lcd
+  lcd.print(cuenta); // muestra el tiempo transcurrido desde el encendido
   
 }
 
