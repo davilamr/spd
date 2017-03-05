@@ -1,3 +1,19 @@
+/******************************************************************
+* Programa: Ejemplo de uso del LCD Keypad Shield
+*
+* Objetivo:
+*   Mostrar los aspectos básicos de funcionamiento del LCD Keypad Shield
+*   Manejar una entrada analógica
+*
+* Aspectos a destacar:
+*   -Lectura de la entrada analogica 
+*
+* Versión: 0.1 del 5 de marzo de 2017
+* Autor: Mauricio Dávila
+* Revisión: -
+*
+* *******************************************************************/
+
 #include <LiquidCrystal.h>
 
 #define btnRIGHT 0
@@ -6,40 +22,34 @@
 #define btnLEFT 3
 #define btnSELECT 4
 #define btnNONE 5
+#define MEGA
 
-// Pines utilizados en la Mega2560
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+#ifdef MEGA
+  LiquidCrystal lcd(8, 9, 4, 5, 6, 7); // Pines utilizados en la Mega2560
+#else
+  LiquidCrystal lcd(12, 11, 5, 4, 3, 2); // Pines utilizados en la UNO
+#endif
 
-// Pines utilizados en la UNO
-//LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-void setup()
+int read_LCD_buttons(void);
+
+/** \brief  Se invoca una sola vez cuando el programa empieza. 
+ *          Se utiliza para inicializar los modos de trabajo 
+ *          de los pines, el puerto serie, etc... 
+ * \param void
+ * \return void
+ */
+void setup(void)
 {
   lcd.begin(16, 2); // inicializo la biblioteca indicando 16 caracteres por 2 lineas
 }
 
-// read the buttons
-int read_LCD_buttons()
-{
-  int adc_key_in = 0;
-  adc_key_in = analogRead(0); // kectura de la entrada analogica
 
-  if (adc_key_in > 1000) 
-    return btnNONE; 
-  if (adc_key_in < 50) 
-    return btnRIGHT;
-  if (adc_key_in < 195) 
-    return btnUP;
-  if (adc_key_in < 380) 
-    return btnDOWN;
-  if (adc_key_in < 555) 
-    return btnLEFT;
-  if (adc_key_in < 790) 
-    return btnSELECT;
-    
-  return btnNONE; // when all others fail, return this...
-}
-
-void loop()
+/** \brief  Contiene el programa que se ejecutará cíclicamente
+ *          
+ * \param void
+ * \return void
+ */
+void loop(void)
 {
   int lcd_key = 0;
   lcd.setCursor(0,0);
@@ -82,4 +92,30 @@ void loop()
        break;
      }
   }
+}
+
+/** \brief  Realiza la lectura de la entrada analogica y determina según su valor
+ *          a que botón hace referencia.
+ * \param void
+ * \return int: Que representa el botón pulsado
+ */
+int read_LCD_buttons(void)
+{
+  int adc_key_in = 0;
+  adc_key_in = analogRead(0); // kectura de la entrada analogica
+
+  if (adc_key_in > 1000) 
+    return btnNONE; 
+  if (adc_key_in < 50) 
+    return btnRIGHT;
+  if (adc_key_in < 195) 
+    return btnUP;
+  if (adc_key_in < 380) 
+    return btnDOWN;
+  if (adc_key_in < 555) 
+    return btnLEFT;
+  if (adc_key_in < 790) 
+    return btnSELECT;
+    
+  return btnNONE; // when all others fail, return this...
 }
