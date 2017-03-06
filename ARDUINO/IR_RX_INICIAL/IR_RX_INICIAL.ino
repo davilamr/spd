@@ -36,8 +36,9 @@ void setup()
   irrecv.blink13(true);
 }
 
-/** \brief  Emula el funcionamiento del printf.
- * \param Recibe un texto seguido por argumentos variables
+/** \brief  Contiene el programa que se ejecutará cíclicamente
+ *          
+ * \param void
  * \return void
  */
 void loop() {
