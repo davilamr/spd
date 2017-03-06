@@ -1,5 +1,5 @@
 /******************************************************************
-* Programa: Ejemplo de uso del Puerto Serie
+* Programa: Ejemplo de uso de la escritura por el Puerto Serie
 *
 * Objetivo:
 *   Mostrar los aspectos básicos del funcionamiento del Puerto Serie

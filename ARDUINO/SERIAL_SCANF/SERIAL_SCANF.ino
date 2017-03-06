@@ -1,13 +1,13 @@
 /******************************************************************
-* Programa: Ejemplo de uso del Puerto Serie
+* Programa: Ejemplo de uso de la lectura por el Puerto Serie
 *
 * Objetivo:
 *   Mostrar los aspectos básicos del funcionamiento del Puerto Serie
 *
 * Aspectos a destacar:
 *   -Escritura por el puerto serie
-*   -Funcion que recibe argumentos variables
-*   -Utilidad del puerto como log
+*   -Lectura por el puerto serie
+* 
 *
 * Versión: 0.1 del 5 de marzo de 2017
 * Autor: Mauricio Dávila
