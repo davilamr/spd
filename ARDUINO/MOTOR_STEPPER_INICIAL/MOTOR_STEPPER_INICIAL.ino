@@ -21,7 +21,7 @@ int Pin1 = 11;
 int Pin2 = 12; 
 int Pin3 = 13; 
 int _step = 0; 
-boolean dir = true;
+boolean dir = false;
 
 /** \brief  Se invoca una sola vez cuando el programa empieza. 
  *          Se utiliza para inicializar los modos de trabajo 
@@ -112,5 +112,5 @@ void setup()
  if(_step<0){ 
    _step=7; 
  } 
- delay(30); 
+ delay(10); 
 }

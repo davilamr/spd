@@ -14,9 +14,8 @@
 *
 * *******************************************************************/
 #include <Stepper.h>
-int stepsPerRevolution = 200;
-Stepper myStepper(stepsPerRevolution, 10,11,12,13);
-
+int stepsPerRevolution = 1024;
+Stepper motor(stepsPerRevolution, 10,11,12,13);
 
 /** \brief  Se invoca una sola vez cuando el programa empieza. 
  *          Se utiliza para inicializar los modos de trabajo 
@@ -24,8 +23,9 @@ Stepper myStepper(stepsPerRevolution, 10,11,12,13);
  * \param void
  * \return void
  */
-void setup() {
-  
+void setup() 
+{
+  motor.setSpeed(20); 
 }
 
 /** \brief  Contiene el programa que se ejecutará cíclicamente
@@ -35,7 +35,11 @@ void setup() {
  */
 void loop() 
 {  
-  myStepper.setSpeed(100);
-  myStepper.step(200); 
-  delay(1000);
+    int steps = -1024;
+    motor.step(steps);
+    delay(5000);
+
+    steps = 200;
+    motor.step(steps);
+    delay(1000); //Semicolon added
 }
