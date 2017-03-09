@@ -6,6 +6,8 @@
 *
 * Aspectos a destacar:
 *   -Controlar un servo motor
+* Info:
+*   https://www.luisllamas.es/arduino-encoder-rotativo/
 *   
 * Versión: 0.1 del 8 de marzo de 2017
 * Autor: Mauricio Dávila
